@@ -3,6 +3,7 @@
 @model CarRepair.Pages.Pages.Appointments.MakeAppointment
 @{
     ViewData["Title"] = "MakeAppointment";
+    Layout = "_TestLayout";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -12,7 +13,7 @@
 
     <input type="hidden" value="Id" name="Appointment.Id" />
     <textarea type="text" value="Issue" name="Appointment.Issue.Description"></textarea> 
-    <input type="date" placeholder="enter your appoinments data" name="Appointment.VisitTime">
+    <input type="date" placeholder="enter your appoinments data" name="Appointment.VisitDate">
     <button type="submit">submit</button>
     
     </form>

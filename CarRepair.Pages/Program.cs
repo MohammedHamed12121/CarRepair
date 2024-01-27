@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CarRepair.Pages.Data;
-using CarRepair.Pages.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

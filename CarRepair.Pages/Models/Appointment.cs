@@ -8,7 +8,7 @@ namespace CarRepair.Pages.Models
     public class Appointment
     {
         public int Id { get; set; }
-        public DateTime VisitTime { get; set; }
+        public DateOnly VisitDate { get; set; }
         public int IssueId { get; set; }
         public Issue? Issue { get; set; }
     }
@@ -19,4 +19,22 @@ namespace CarRepair.Pages.Models
         public string? Description { get; set; }
     }
 
+    public class Acknowledge
+    {
+        public int Id { get; set; }
+        public string? Note { get; set; } 
+        public decimal Price { get; set; }
+        public DateOnly VisitDate { get; set; }
+        public bool Accept { get; set; } = false;
+        public DateOnly AcceptDate { get; set; }
+        public Status CarStatus { get; set; }
+    }
+
+    public enum Status
+    {
+        Recieved,
+        UnderRepair,
+        Repaired,
+        Recieve
+    }
 }

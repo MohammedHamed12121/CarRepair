@@ -1,0 +1,45 @@
+@page
+@model CarRepair.Pages.Pages.Admin.AcceptedAcknowledgement
+@{
+    ViewData["Title"] = "AcceptedAcknowledgement";
+    Layout = "_TestLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <table class="table table-sm table-striped table-bordered">
+            <thead>
+
+                <tr>
+                    <th>Id</th>
+                    <th>Visit Time</th>
+                    <th>Price</th>
+                    <th>Time to confirm</th>
+                    <th>Notes</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var acknowledge in @Model.Acknowledges)
+                {
+                <tr>
+                    <td>@acknowledge.Id</td>
+                    <td>@acknowledge.VisitDate </td>
+                    <td>@acknowledge.Price </td>
+                    <td>@acknowledge.AcceptDate </td>
+                    <td>@acknowledge.Note </td>
+                    @* <td>@appointment.Issue.Description</td> *@
+                    <td>
+                        @* <form method="post">
+                            <input type="hidden" name="AcknowledgeId"
+                            value="@acknowledge.Id">
+                            <button type="submit" >Accept</button>
+                        </form> *@
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+</div>

@@ -11,4 +11,5 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<Acknowledge> Acknowledges { get; set; }
 }
