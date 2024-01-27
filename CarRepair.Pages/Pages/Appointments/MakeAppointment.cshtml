@@ -1,0 +1,19 @@
+@page
+@using CarRepair.Pages.Models
+@model CarRepair.Pages.Pages.Appointments.MakeAppointment
+@{
+    ViewData["Title"] = "MakeAppointment";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <form method="post">
+
+    <input type="hidden" value="Id" name="Appointment.Id" />
+    <textarea type="text" value="Issue" name="Appointment.Issue.Description"></textarea> 
+    <input type="date" placeholder="enter your appoinments data" name="Appointment.VisitTime">
+    <button type="submit">submit</button>
+    
+    </form>
+</div>
