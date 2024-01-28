@@ -33,9 +33,13 @@ namespace CarRepair.Pages.Pages.Admin
 
         public IActionResult OnPost()
         {   
+            // Get the id of the appointment
             int.TryParse(Request.Form["AppointmentId"].ToString(), out int AppointmentId);
+            // Get the appointment by the id
             var appointment = _context.Appointments.FirstOrDefault(a => a.Id == AppointmentId);
+            // Then remove the appointment
             _context.Appointments.Remove(appointment);
+            // Get the acknowledgement
             _context.Acknowledges.Add(Acknowledge);
             _context.SaveChanges();
             return RedirectToPage("DisplayAppointments");

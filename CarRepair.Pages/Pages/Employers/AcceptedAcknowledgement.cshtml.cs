@@ -24,7 +24,11 @@ namespace CarRepair.Pages.Pages.Admin
 
         public void OnGet()
         {
-            Acknowledges = _context.Acknowledges.Where(a => a.Accept == true).ToList();
+            // get all the acknowledges order by date of the visit
+            Acknowledges = _context.Acknowledges
+                                    .Where(a => a.Accept == true && a.CarStatus == Status.AppointmentAccepted)
+                                    .OrderBy(a => a.VisitDate)
+                                    .ToList();
         }
     }
 }

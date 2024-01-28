@@ -25,6 +25,9 @@ namespace CarRepair.Pages.Models
         public string? Note { get; set; } 
         public decimal Price { get; set; }
         public DateOnly VisitDate { get; set; }
+        // TODO: Add the issue
+        // public int IssueId { get; set; }
+        // public Issue? Issue { get; set; }
         public bool Accept { get; set; } = false;
         public DateOnly AcceptDate { get; set; }
         public Status CarStatus { get; set; }
@@ -32,9 +35,9 @@ namespace CarRepair.Pages.Models
 
     public enum Status
     {
-        Recieved,
-        UnderRepair,
-        Repaired,
-        Recieve
+        AppointmentAccepted,  // the default when the user accept the confirmation form the company
+        Recieved,   // when the user send the car to the company
+        UnderRepair,  // when the employee begin to work on the fix
+        ReadyForRecieve     // When the employee finish, and the car is ready for recieve
     }
 }

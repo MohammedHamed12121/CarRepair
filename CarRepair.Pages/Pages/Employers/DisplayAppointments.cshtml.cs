@@ -27,6 +27,7 @@ namespace CarRepair.Pages.Pages.Appointments
         {
             appointments = _context.Appointments
                             .Include(a => a.Issue)
+                            .OrderBy(a => a.VisitDate)
                             .ToList();
         }
     }

@@ -26,7 +26,10 @@ namespace CarRepair.Pages.Pages.Appointments
 
         public void OnGet()
         {
-            Acknowledges = _context.Acknowledges.Where(a => a.Accept == false).ToList();
+            Acknowledges = _context.Acknowledges
+                                   .Where(a => a.Accept == false)
+                                   .OrderBy(a=>a.VisitDate)
+                                   .ToList();
         }
 
         public IActionResult OnPost()

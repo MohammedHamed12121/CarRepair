@@ -1,0 +1,51 @@
+@page
+@using CarRepair.Pages.Models
+@model CarRepair.Pages.Pages.Admin.AcceptedAcknowledgement
+@{
+    ViewData["Title"] = "AcceptedAcknowledgement";
+    Layout = "_TestLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Visit Time</th>
+                <th>Price</th>
+                <th>Notes</th>
+                <th>Take job</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var acknowledge in @Model.Acknowledges)
+            {
+                <tr>
+                    <td>@acknowledge.Id</td>
+                    <td>@acknowledge.VisitDate </td>
+                    <td>@acknowledge.Price </td>
+                    <td>@acknowledge.Note </td>
+                    <td></td>
+                    <td>
+                        Accepted
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+@section scripts {
+    <script>
+        @* when change the option submit the form *@
+        document.getElementById('acknowledge_CarStatus').addEventListener('change', () => {
+            @* document.getElementById('statusForm').submit(); *@
+        });
+    </script>
+}
