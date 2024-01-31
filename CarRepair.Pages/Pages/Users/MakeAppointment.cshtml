@@ -6,15 +6,23 @@
     Layout = "_TestLayout";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<div>
+<div class="container">
     <form method="post">
-
-    <input type="hidden" value="Id" name="Appointment.Id" />
-    <textarea type="text" value="Issue" name="Appointment.Issue.Description"></textarea> 
-    <input type="date" placeholder="enter your appoinments data" name="Appointment.VisitDate">
-    <button type="submit">submit</button>
+        <div class="form-group m-4">
+            <h1 for="">Welcome @User.Identity!.Name</h1>
+            <input type="hidden" value="Id" name="Repair.Id" class="form-control" />
+            <input type="hidden" value="@Model.CurrentUserId" name="CurrentUserId" class="form-control" />
+        </div>
+        <div class="form-group m-4">
+            <label >What is your car problem</label>
+            <textarea type="text" value="Issue" name="Repair.Issue.Description" class="form-control"></textarea>
+        </div>
+        <div class="form-group m-4">
+            <label for="">Visit Date</label>
+            <input type="date" placeholder="enter your appoinments data" name="Repair.VisitDate" class="form-control" >
+        </div>
+        <button type="submit" class="btn btn-primary m-4">submit</button>
     
     </form>
 </div>

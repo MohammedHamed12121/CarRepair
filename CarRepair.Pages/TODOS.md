@@ -1,4 +1,7 @@
 - [ ] for the admin : show the status of the acknowledge and then mark it as recieved
 - [ ] while in progress the admin or the mechanic can change the status 
-- [ ] change the admin folder to employers and the appointments folder to clients
-- [ ] when the campany recives the car the manager should review the status of the car if the user specify that option
+- [ ] change the acknowledgement to repaut
+- [ ] when user click his name it send him to the user page
+- [ ] user page has info and appility to change the user name
+- [ ] when the user login add name
+- [ ] when the expires date pass the user date delete the appointment

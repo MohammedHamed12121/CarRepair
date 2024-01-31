@@ -1,0 +1,80 @@
+@page
+@model CarRepair.Pages.Pages.Appointments.DisplayAppointments
+@{
+    ViewData["Title"] = "DisplayAppointments";
+    Layout = "_TestLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h3>NOTE: </h3> 
+<p>
+    this page is related to the receptionist 
+</p>
+
+<div>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Visit Time</th>
+                <th>User Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @* the unaccepted repair called appointment *@
+            @foreach (var appointment in @Model.Repairs)
+            {
+                <tr>
+                    <td>@appointment.Id</td>
+                    <td>@appointment.VisitDate </td>
+                    <td>@appointment.User.UserName</td>
+                    @* <td>@appointment.Issue.Description</td> *@
+                    <td>
+                        @* TODO: show the the Issue on a model popup *@
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#IssueModel-@appointment.Id">Show
+                            Issue</button>
+                    </td>
+                </tr>
+
+
+
+                <!-- Bootstrap Modal -->
+                <div class="modal fade" id="IssueModel-@appointment.Id" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                @* ///----------------header----------------------------- *@
+                                <h5 class="modal-title" id="exampleModalLabel">Issue</h5>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                @* \\\------------------------------------------------- *@
+
+                            </div>
+
+                            <div class="modal-body">
+
+                                @* ///---------------body------------------------------ *@
+                                <p>@appointment.Issue.Description</p>
+                                @* \\\-------------------------------------------------- *@
+                            </div>
+                            <div class="modal-footer">
+
+                                @* ///--------------buttons------------------------------- *@
+                                <a asp-area="" asp-page="SendConfirm" asp-route-appointmentId="@appointment.Id"
+                                    class="btn btn-primary">Accept</a>
+                                <button class="btn btn-primary">Reject</button>
+                                @* \\\-------------------------------------------------- *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </tbody>
+    </table>
+</div>

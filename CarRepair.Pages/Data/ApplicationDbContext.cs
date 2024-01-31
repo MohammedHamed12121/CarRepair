@@ -10,6 +10,6 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
-    public DbSet<Appointment> Appointments { get; set; }
-    public DbSet<Acknowledge> Acknowledges { get; set; }
+    public DbSet<Repair> Repairs { get; set; }
+    public DbSet<Issue> Issues { get; set; }
 }
