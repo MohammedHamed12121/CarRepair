@@ -1,0 +1,39 @@
+@page
+@model CarRepair.Pages.Pages.Users.RejectedAppointments
+@{
+    ViewData["Title"] = "RejectedAppointments";
+    Layout="_UserLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h1>Rejected</h1>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Visit Time</th>
+                <th>Issue</th>
+                <th>RepairStatus</th>
+                <th>note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* the unaccepted repair called appointment *@
+            @foreach (var appointment in Model.Repairs)
+            {
+                <tr>
+                    <td>@appointment.Id</td>
+                    <td>@appointment.VisitDate </td>
+                    <td>@appointment.Issue.Description</td>
+                    <td>@appointment.AppointmentStatus </td>
+                    <td>@appointment.WorkerNote </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

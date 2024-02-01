@@ -1,0 +1,34 @@
+@page
+@model CarRepair.Pages.Pages.Receptionist.RejectedRepairs
+@{
+    ViewData["Title"] = "RejectedRepairs";
+    Layout="_ReceptionistLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h1>Rejected Repairs</h1>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Visit Time</th>
+                <th>Issue</th>
+                <th>RepairStatus</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var repair in Model.Repairs)
+            {
+                <tr>
+                    <td>@repair.Id</td>
+                    <td>@repair.VisitDate </td>
+                    <td>@repair.Issue.Description</td>
+                    <td>@repair.AppointmentStatus </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

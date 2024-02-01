@@ -12,8 +12,17 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        // if user is authenticated 
+        if(User.Identity.IsAuthenticated)
+        {
 
+            // if the role is user
+            return RedirectToPage("Users/SentAppointments");
+        }
+
+        // if the user is not authonticated
+        return Page();
     }
 }

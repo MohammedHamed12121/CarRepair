@@ -1,13 +1,14 @@
 @page
-@model CarRepair.Pages.Pages.Admin.SendConfirm
+@model CarRepair.Pages.Pages.Receptionist.SendRejection
 @{
-    ViewData["Title"] = "SendConfirm";
+    ViewData["Title"] = "SendRejection";
     Layout="_ReceptionistLayout";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <div>
+    <h1>Send Rejection</h1>
     <h1>@Model.Repair.Id</h1>
     <form method="post">
         <input type="hidden" name="Repair.Id" value="@Model.Repair.Id">
@@ -15,12 +16,9 @@
         <input type="hidden" name="Repair.UserId" value="@Model.Repair.UserId">
         <input type="hidden" name="Repair.IssueId" value="@Model.Repair.IssueId">
 
-        
+
         <label for=""> user visit date @Model.Repair.VisitDate</label>
-        <input type="text" placeholder="Price" name="Repair.Price">
-        <input type="text" placeholder="Notes" name="Repair.WorkerNote">
-        <label for=""> user expires confirm date</label>
-        <input type="date" name="Repair.AcceptDate">
+        <textarea type="text" placeholder="Notes" name="Repair.WorkerNote"></textarea>
         <button type="submit">submit</button>
     </form>
 </div>

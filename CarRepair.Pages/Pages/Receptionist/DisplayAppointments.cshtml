@@ -2,7 +2,7 @@
 @model CarRepair.Pages.Pages.Appointments.DisplayAppointments
 @{
     ViewData["Title"] = "DisplayAppointments";
-    Layout = "_TestLayout";
+    Layout="_ReceptionistLayout";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -67,7 +67,8 @@
                                 @* ///--------------buttons------------------------------- *@
                                 <a asp-area="" asp-page="SendConfirm" asp-route-appointmentId="@appointment.Id"
                                     class="btn btn-primary">Accept</a>
-                                <button class="btn btn-primary">Reject</button>
+                                <a asp-area="" asp-page="SendRejection" asp-route-appointmentId="@appointment.Id"
+                                    class="btn btn-primary">Reject</a>
                                 @* \\\-------------------------------------------------- *@
                             </div>
                         </div>
