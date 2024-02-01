@@ -1,0 +1,41 @@
+@page
+@model CarRepair.Pages.Pages.Receptionist.UserAcceptance
+@{
+    ViewData["Title"] = "UserAcceptance";
+    Layout="_ReceptionistLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h1>User Accentance</h1>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Visit Time</th>
+                <th>Issue</th>
+                <th>RepairStatus</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var repair in Model.Repairs)
+            {
+                <tr>
+                    <td>@repair.Id</td>
+                    <td>@repair.VisitDate </td>
+                    <td>@repair.Issue.Description</td>
+                    <td>@repair.CarStatus </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="RepairId"
+                            value="@repair.Id">
+                            <button type="submit" class="btn btn-primary">Recieve the car</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

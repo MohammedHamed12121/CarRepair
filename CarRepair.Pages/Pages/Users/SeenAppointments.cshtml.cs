@@ -43,8 +43,7 @@ namespace CarRepair.Pages.Pages.Users
             repair.AppointmentStatus = AppointmentStatus.Accept;
             _context.Repairs.Update(repair);
             _context.SaveChanges();
-            // return RedirectToPage("DisplayAcknowledgement");
-            return Page();
+            return RedirectToPage("SeenAppointments");
         }
     }
 }

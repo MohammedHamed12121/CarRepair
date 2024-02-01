@@ -38,7 +38,7 @@ namespace CarRepair.Pages.Pages.Appointments
             Repair.UserId = CurrentUserId;
             _context.Repairs.Add(Repair);
             _context.SaveChanges();
-            return RedirectToPage("User");
+            return RedirectToPage("SentAppointments");
         }
     }
 }
