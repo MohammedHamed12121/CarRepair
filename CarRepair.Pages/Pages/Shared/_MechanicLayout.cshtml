@@ -40,19 +40,17 @@
                 Acknowledge</a>
             <a class="btn btn-primary" asp-area="" asp-page="/Recieve/Recieve">Reciever</a>
             <a class="btn btn-primary" asp-area="" asp-page="/Employers/EmployerWorkspace">Employer workspace</a>
+            <partial name="_LoginPartial" />
         </nav>
 
 
     </header>
     <div>
-        <h1>hello Receptionist</h1>
+        <h1>hello @User.Identity!.Name</h1>
     </div>
     <nav>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/DisplayAppointments">Appointments</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/AcceptedRepairs">Accepted</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/RejectedRepairs">Rejected</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/UserAcceptance">User Accept</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/RecievedCars">Received cars</a>
+        <a class="btn btn-primary" asp-area="" asp-page="/Mechanic/AssignedRepairs">Assigned</a>
+        <a class="btn btn-primary" asp-area="" asp-page="/Mechanic/NotAssignedRepairs">Not Assigned</a>
     </nav>
 
     @* <div class="container"> *@

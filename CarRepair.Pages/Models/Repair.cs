@@ -20,5 +20,7 @@ namespace CarRepair.Pages.Models
         public Status CarStatus { get; set; }
         public string? UserId { get; set; }
         public IdentityUser? User { get; set; }
+        public string? AssignedMechanicId { get; set; }
+        public IdentityUser? AssignedMechanic { get; set; }
     }
 }

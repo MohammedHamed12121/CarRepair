@@ -28,7 +28,7 @@ namespace CarRepair.Pages.Pages.Receptionist
         public async void OnGet()
         {
             Repairs = await _context.Repairs
-                            .Where(r => r.CarStatus == Status.Recieved)
+                            .Where(r => r.CarStatus >= Status.Recieved)
                             .Include(r=> r.Issue)
                             .ToListAsync();
         }

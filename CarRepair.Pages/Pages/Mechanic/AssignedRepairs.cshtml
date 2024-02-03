@@ -1,0 +1,37 @@
+@page
+@model CarRepair.Pages.Pages.Mechanic.AssignedRepairs
+@{
+    ViewData["Title"] = "AssignedRepairs";
+    Layout = "_MechanicLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Visit Time</th>
+                <th>Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var repair in Model.Repairs)
+            {
+                <tr>
+                    <td>@repair.Id</td>
+                    <td>@repair.VisitDate </td>
+                    <td>@repair.Issue.Description</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" value="@repair.Id" name="RepairId">
+                            <button type="submit" class="btn btn-primary">Complete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

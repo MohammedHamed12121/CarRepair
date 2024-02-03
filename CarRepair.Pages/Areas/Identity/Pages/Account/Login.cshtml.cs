@@ -103,7 +103,7 @@ namespace CarRepair.Pages.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("/Users/User");
+            returnUrl ??= Url.Content("/Users/SeenAppointments");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
