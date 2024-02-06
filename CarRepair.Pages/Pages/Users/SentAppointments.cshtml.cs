@@ -16,10 +16,10 @@ namespace CarRepair.Pages.Pages.Users
     {
         private readonly ILogger<SentAppointments> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
         public List<Repair> Repairs { get; set; }
-        public SentAppointments(ILogger<SentAppointments> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public SentAppointments(ILogger<SentAppointments> logger, ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _context = context;

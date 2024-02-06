@@ -16,13 +16,13 @@ namespace CarRepair.Pages.Pages.Mechanic
     {
         private readonly ILogger<NotAssignedRepairs> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
         public List<Repair> Repairs { get; set; }
         [BindProperty]
         public int RepairId { get; set; }
 
-        public NotAssignedRepairs(ILogger<NotAssignedRepairs> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public NotAssignedRepairs(ILogger<NotAssignedRepairs> logger, ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _context = context;
@@ -39,12 +39,20 @@ namespace CarRepair.Pages.Pages.Mechanic
         public async Task<IActionResult> OnPost()
         {
             var currentUserId = _userManager.GetUserId(User);
+
+            // make the current user busy
+            var currentUser = await _context.Users.Where(u => u.Id == currentUserId).FirstOrDefaultAsync();
+            currentUser!.Busy = true;
+            
+            // assign the repair to be under repair
             var repair = await _context.Repairs
                                     .Where(r=> r.Id == RepairId)
                                     .FirstOrDefaultAsync();
             repair!.AssignedMechanicId = currentUserId;
             repair!.CarStatus = Status.UnderRepair;
             _context.Repairs.Update(repair);
+
+            // save changes
             _context.SaveChanges();
             return RedirectToPage();
         }

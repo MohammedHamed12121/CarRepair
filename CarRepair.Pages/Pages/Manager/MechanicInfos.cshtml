@@ -1,0 +1,25 @@
+@page
+@model CarRepair.Pages.Pages.Manager.MechanicInfos
+@{
+    ViewData["Title"] = "MechanicInfos";
+    Layout = "_ManagerLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h1>desplay all mechanics info </h1>
+    @foreach(var user in @Model.Users)
+    {
+        <h1>@user.Email</h1>
+        @if(user.Busy)
+        {
+            <p>Busy</p>
+        }
+        else
+        {
+            <p>Free</p>
+        }
+        <hr>
+    }
+</div>

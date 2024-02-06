@@ -15,14 +15,14 @@ namespace CarRepair.Pages.Pages.Appointments
     {
         private readonly ILogger<MakeAppointment> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         [BindProperty]
         public Repair Repair {get; set;}
 
         [BindProperty(SupportsGet = true)]
         public string CurrentUserId { get; set; }
 
-        public MakeAppointment(ILogger<MakeAppointment> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public MakeAppointment(ILogger<MakeAppointment> logger, ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _context = context;

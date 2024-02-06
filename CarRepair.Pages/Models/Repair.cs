@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using CarRepair.Pages.Data.Migrations;
@@ -14,13 +15,13 @@ namespace CarRepair.Pages.Models
         public string? WorkerNote { get; set; }
         public decimal Price { get; set; }
         public DateOnly AcceptDate { get; set; }
+        public Status CarStatus { get; set; }
         public AppointmentStatus AppointmentStatus { get; set; }
         public int IssueId { get; set; }
         public Issue? Issue { get; set; }
-        public Status CarStatus { get; set; }
         public string? UserId { get; set; }
-        public IdentityUser? User { get; set; }
+        public AppUser? User { get; set; }
         public string? AssignedMechanicId { get; set; }
-        public IdentityUser? AssignedMechanic { get; set; }
+        public AppUser? AssignedMechanic { get; set; }
     }
 }

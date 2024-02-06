@@ -16,13 +16,13 @@ namespace CarRepair.Pages.Pages.Mechanic
     {
         private readonly ILogger<AssignedRepairs> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
         public List<Repair> Repairs { get; set; }
         [BindProperty]
         public int RepairId { get; set; }
 
-        public AssignedRepairs(ILogger<AssignedRepairs> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public AssignedRepairs(ILogger<AssignedRepairs> logger, ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _context = context;
