@@ -1,37 +1,62 @@
 @page
 @model CarRepair.Pages.Pages.Users.AcceptedAppointments
+@using CarRepair.Pages.Models
 @{
     ViewData["Title"] = "AcceptedAppointments";
-    Layout="_UserLayout";
+    Layout = "_UserLayout";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
 
 
-    <table class="table table-sm table-striped table-bordered">
-        <thead>
-
-            <tr>
-                <th>Id</th>
-                <th>Visit Time</th>
-                <th>Issue</th>
-                <th>RepairStatus</th>
-            </tr>
-        </thead>
-        <tbody>
-            @* the unaccepted repair called appointment *@
-            @foreach (var appointment in Model.Repairs)
-            {
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>@appointment.Id</td>
-                    <td>@appointment.VisitDate </td>
-                    <td>@appointment.Issue.Description</td>
-                    <td>@appointment.CarStatus</td>
+                    <th>Id</th>
+                    <th>Visit Time</th>
+                    <th>Issue</th>
+                    <th>RepairStatus</th>
                 </tr>
-            }
-
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+                @* unaccepted repair called appointment *@
+                @foreach (var appointment in Model.Repairs)
+                {
+                    <tr>
+                        <td>@appointment.Id</td>
+                        <td>@appointment.VisitDate </td>
+                        <td>@appointment.Issue!.Description</td>
+                        <td>
+                            @if(appointment.CarStatus == Status.AppointmentAccepted)
+                            {
+                            <label class="badge badge-danger">
+                                @appointment.CarStatus
+                            </label>
+                            }else if(appointment.CarStatus == Status.Recieved)
+                            {
+                            <label class="badge badge-warning">
+                                @appointment.CarStatus
+                            </label>
+                            }else if(appointment.CarStatus == Status.UnderRepair)
+                            {
+                            <label class="badge badge-info">
+                                @appointment.CarStatus
+                            </label>
+                            }else
+                            {
+                            <label class="badge badge-success">
+                                @appointment.CarStatus
+                            </label>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

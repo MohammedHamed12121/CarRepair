@@ -2,50 +2,44 @@
 @model CarRepair.Pages.Pages.Users.SeenAppointments
 @{
     ViewData["Title"] = "SeenAppointments";
-    Layout="_UserLayout";
+    Layout = "_UserLayout";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-@if(Model.Repairs is null || Model.Repairs.Count == 0)
-{
-    <h1>there is no seen appointments yet</h1>
-} 
-else
-{
 
-<div>
-    <table class="table table-sm table-striped table-bordered">
-        <thead>
-
-            <tr>
-                <th>Id</th>
-                <th>Visit Time</th>
-                <th>Price</th>
-                <th>Issue</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @* the unaccepted repair called appointment *@
-            @foreach (var appointment in Model.Repairs)
-            {
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>@appointment.Id</td>
-                    <td>@appointment.VisitDate </td>
-                    <td>@appointment.Price </td>
-                    <td>@appointment.Issue.Description</td>
-                    <td>
-                        <form method="post">
-                            <input type="hidden" name="RepairId"
-                            value="@appointment.Id">
-                            <button type="submit" class="btn btn-primary">Accept</button>
-                        </form>
-                    </td>
+                    <th>Id</th>
+                    <th>Visit Time</th>
+                    <th>Price</th>
+                    <th>Issue</th>
+                    <th></th>
                 </tr>
-            }
-
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+                @* unaccepted repair called appointment *@
+                @foreach (var appointment in Model.Repairs)
+                {
+                    <tr>
+                        <td>@appointment.Id</td>
+                        <td>@appointment.VisitDate </td>
+                        <td>@appointment.Price </td>
+                        <td>@appointment.Issue!.Description</td>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="RepairId" value="@appointment.Id">
+                                <button type="submit" class="btn btn-primary">Accept</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-}

@@ -7,6 +7,8 @@
 - [ ] when the expires date pass the user date delete the appointment
 - [ ] implement receive the car logic
 - [ ] implement mechanic get button
+- [ ] Fix: problem with user page when you click on user name
+- [ ] change the side bar to red
 
 
 ##### Manager

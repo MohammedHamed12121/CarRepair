@@ -39,43 +39,102 @@
             <a class="btn btn-primary" asp-area="" asp-page="/Manager/MechanicInfos">Manager</a>
             <a class="btn btn-primary" asp-area="" asp-page="/Recieve/Recieve">Reciever</a>
             <a class="btn btn-primary" asp-area="" asp-page="/Employers/EmployerWorkspace">Employer workspace</a>
-            <partial name="_LoginPartial" />
+
         </nav>
 
 
     </header>
     <div>
-        <h1>hello @User.Identity!.Name</h1>
-        <a class="btn btn-primary" asp-area="" asp-page="/Users/MakeAppointment">Make appointment</a>
-    </div>
-    <nav>
-        <a class="btn btn-primary" asp-area="" asp-page="/Users/SentAppointments">Sent</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Users/SeenAppointments">Seen</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Users/AcceptedAppointments">Accepted</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Users/RejectedAppointments">Rejected</a>
-    </nav>
-
-    @* <div class="container"> *@
-    <main role="main">
-        @RenderBody()
-    </main>
-    @* </div> *@
-
-    @* <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2024 - CarRepair.Pages - <a asp-area="" asp-page="/Privacy">Privacy</a>
-    </div>
-    </footer> *@
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <div>
+                        Welcome
+                    </div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    @await RenderSectionAsync("Scripts", required: false)
+        <div class="row">
+
+            <div class="col-2">
+
+                <!-- partial:./partials/_sidebar.html -->
+                <nav class="sidebar">
+                    <ul class="nav">
+                        <li class="nav-item sidebar-category">
+                            <p>Appointment</p>
+                            <span></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Users/SentAppointments">
+                                <i class="mdi mdi-view-headline menu-icon"></i>
+                                <span class="menu-title">Sent</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Users/SeenAppointments">
+                                <i class="mdi mdi-chart-pie menu-icon"></i>
+                                <span class="menu-title">To You</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Users/AcceptedAppointments">
+                                <i class="mdi mdi-grid-large menu-icon"></i>
+                                <span class="menu-title">Accepted</span>
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Users/RejectedAppointments">
+                                <i class="mdi mdi-emoticon menu-icon"></i>
+                                <span class="menu-title">Rejected</span>
+                            </a>
+                        </li>
+                        <li class="nav-item sidebar-category">
+                            <p>New</p>
+                            <span></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Users/MakeAppointment">
+                                <span class="menu-title">Make appointment</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- partial -->
+            </div>
+            <div class="col-9">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+
+
+        @* <div class="container"> *@
+
+        @* </div> *@
+
+        @* <footer class="border-top footer text-muted">
+        <div class="container">
+        &copy; 2024 - CarRepair.Pages - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+        </footer> *@
+
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
