@@ -1,6 +1,4 @@
-@{
-    Layout="_TopLayout";
-}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,36 +31,19 @@
 </head>
 
 <body>
-
-    <div>
-        <h1>hello @User.Identity!.Name</h1>
-    </div>
-    <nav>
-        <a class="btn btn-primary" asp-area="" asp-page="/Mechanic/AssignedRepairs">Assigned</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Mechanic/NotAssignedRepairs">Not Assigned</a>
-    </nav>
-
-    @* <div class="container"> *@
-    <main role="main">
-        @RenderBody()
-    </main>
-    @* </div> *@
-
-    @* <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2024 - CarRepair.Pages - <a asp-area="" asp-page="/Privacy">Privacy</a>
-    </div>
-    </footer> *@
+    <header>
+        <nav>
+            <a class="btn btn-primary" asp-area="" asp-page="/Users/SentAppointments">User</a>
+            <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/DisplayAppointments">Receptionist</a>
+            <a class="btn btn-primary" asp-area="" asp-page="/Mechanic/NotAssignedRepairs">Mechanic</a>
+            <a class="btn btn-primary" asp-area="" asp-page="/Manager/MechanicInfos">Manager</a>
+        </nav>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </header>
+    @RenderBody()
 
 
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

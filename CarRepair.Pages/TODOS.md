@@ -9,6 +9,8 @@
 - [ ] implement mechanic get button
 - [ ] Fix: problem with user page when you click on user name
 - [ ] change the side bar to red
+- [ ] Fix the foother
+- [ ] the sidebars have an icons so fix them
 
 
 ##### Manager

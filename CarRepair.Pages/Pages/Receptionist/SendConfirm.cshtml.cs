@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using CarRepair.Pages.Data;
 using CarRepair.Pages.Data.Migrations;
 using CarRepair.Pages.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace CarRepair.Pages.Pages.Admin
 {
+    [Authorize(Roles ="Receptionist")]
     public class SendConfirm : PageModel
     {
         private readonly ILogger<SendConfirm> _logger;

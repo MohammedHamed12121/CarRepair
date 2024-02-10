@@ -5,10 +5,35 @@
     Layout="_ReceptionistLayout";
 }
 
-<h1>@ViewData["Title"]</h1>
 
 <div>
     <h1>@Model.Repair.Id</h1>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div>
+                    <h1>@ViewData["Title"]</h1>
+                </div>
+                <div class="container">
+
+                    <div class="row height d-flex justify-content-center align-items-center">
+
+                        <div class="col-md-8">
+
+                            <div class="search">
+                                <i class="fa fa-search"></i>
+                                <input type="text" class="form-control" placeholder="Search By Id">
+                                @* <button class="btn btn-primary">Search</button> *@
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
     <form method="post">
         <input type="hidden" name="Repair.Id" value="@Model.Repair.Id">
         <input type="hidden" name="Repair.VisitDate" value="@Model.Repair.VisitDate">

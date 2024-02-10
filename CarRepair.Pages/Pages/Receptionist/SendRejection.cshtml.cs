@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarRepair.Pages.Data;
 using CarRepair.Pages.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace CarRepair.Pages.Pages.Receptionist
 {
+    [Authorize(Roles ="Receptionist")]
     public class SendRejection : PageModel
     {
         private readonly ILogger<SendRejection> _logger;

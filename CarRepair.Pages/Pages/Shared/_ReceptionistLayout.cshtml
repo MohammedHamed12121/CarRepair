@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+@{
+    Layout="_TopLayout";
+}
 <html lang="en">
 
 <head>
@@ -31,36 +33,68 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a class="btn btn-primary" asp-area="" asp-page="/Users/SentAppointments">User</a>
-            <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/DisplayAppointments">Receptionist</a>
-            <a class="btn btn-primary" asp-area="" asp-page="/Mechanic/Cars">Mechanic</a>
-            <a class="btn btn-primary" asp-area="" asp-page="/Manager/MechanicInfos">Manager</a>
-            <a class="btn btn-primary" asp-area="" asp-page="/Employers/AcceptedAcknowledgement">Accepted
-                Acknowledge</a>
-            <a class="btn btn-primary" asp-area="" asp-page="/Recieve/Recieve">Reciever</a>
-            <a class="btn btn-primary" asp-area="" asp-page="/Employers/EmployerWorkspace">Employer workspace</a>
-        </nav>
 
+    <div class="row">
 
-    </header>
-    <div>
-        <h1>hello Receptionist</h1>
+        <div class="col-2">
+
+            <nav class="sidebar">
+                <ul class="nav">
+                    <li class="nav-item sidebar-category">
+                        <p>Appointment</p>
+                        <span></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-page="/Receptionist/DisplayAppointments">
+                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <span class="menu-title">Appointments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-page="/Receptionist/AcceptedRepairs">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Accepted</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-page="/Receptionist/RejectedRepairs">
+                            <i class="mdi mdi-grid-large menu-icon"></i>
+                            <span class="menu-title">Rejected</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-page="/Receptionist/UserAcceptance">
+                            <i class="mdi mdi-emoticon menu-icon"></i>
+                            <span class="menu-title">User Accept</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-page="/Receptionist/RecievedCars">
+                            <i class="mdi mdi-emoticon menu-icon"></i>
+                            <span class="menu-title">Received cars</span>
+                        </a>
+                    </li>
+                    <li class="nav-item sidebar-category">
+                        <p>New</p>
+                        <span></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-page="">
+                            <span class="menu-title">ADD SOMETHING HERE</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- partial -->
+        </div>
+        <div class="col-9">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
     </div>
-    <nav>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/DisplayAppointments">Appointments</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/AcceptedRepairs">Accepted</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/RejectedRepairs">Rejected</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/UserAcceptance">User Accept</a>
-        <a class="btn btn-primary" asp-area="" asp-page="/Receptionist/RecievedCars">Received cars</a>
-    </nav>
 
-    @* <div class="container"> *@
-    <main role="main">
-        @RenderBody()
-    </main>
-    @* </div> *@
 
     @* <footer class="border-top footer text-muted">
     <div class="container">

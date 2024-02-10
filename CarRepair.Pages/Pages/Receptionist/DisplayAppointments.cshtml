@@ -2,28 +2,79 @@
 @model CarRepair.Pages.Pages.Appointments.DisplayAppointments
 @{
     ViewData["Title"] = "DisplayAppointments";
-    Layout="_ReceptionistLayout";
+    Layout = "_ReceptionistLayout";
 }
 
-<h1>@ViewData["Title"]</h1>
-<h3>NOTE: </h3> 
-<p>
-    this page is related to the receptionist 
-</p>
 
-<div>
-    <table class="table table-sm table-striped table-bordered">
+@* <style>
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-responsive>.table-bordered {
+        border: 0;
+    }
+
+    .project-orders-table thead tr th:first-child {
+        padding-left: 1.9rem;
+        padding-right: 1.9rem;
+    }
+
+    .project-orders-table thead tr th:last-child {
+        padding-right: 1.9rem;
+    }
+
+    .project-orders-table tbody tr td:first-child {
+        padding-left: 1.9rem;
+    }
+
+    .project-orders-table tbody tr td:last-child {
+        padding-right: 1.9rem;
+    }
+</style> *@
+
+
+
+<div class="table-responsive pt-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div>
+                    <h1>@ViewData["Title"]</h1>
+                </div>
+                <div class="container">
+
+                    <div class="row height d-flex justify-content-center align-items-center">
+
+                        <div class="col-md-8">
+
+                            <div class="search">
+                                <i class="fa fa-search"></i>
+                                <input type="text" class="form-control" placeholder="Search By Id">
+                                @* <button class="btn btn-primary">Search</button> *@
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+    <table class="table table-striped project-orders-table">
         <thead>
-
             <tr>
-                <th>Id</th>
+                <th class="ml-5">ID</th>
                 <th>Visit Time</th>
                 <th>User Name</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @* the unaccepted repair called appointment *@
             @foreach (var appointment in @Model.Repairs)
             {
                 <tr>
@@ -45,34 +96,36 @@
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                @* ///----------------header----------------------------- *@
-                                <h5 class="modal-title" id="exampleModalLabel">Issue</h5>
-
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                @* \\\------------------------------------------------- *@
-
-                            </div>
-
                             <div class="modal-body">
+                                <div class="card-body">
+                                    <div class="row">
 
-                                @* ///---------------body------------------------------ *@
-                                <p>@appointment.Issue.Description</p>
-                                @* \\\-------------------------------------------------- *@
+                                        <h4 class="card-title col-10">Issue <small>@appointment.User</small></h4>
+                                        <button type="button" class="close col-2 btn btn-primary" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <p class="card-description">
+                                        <small>@appointment.VisitDate</small>
+                                    </p>
+                                    <p>
+                                        @appointment.Issue!.Description
+                                    </p>
+                                </div>
+
+
                             </div>
                             <div class="modal-footer">
 
-                                @* ///--------------buttons------------------------------- *@
                                 <a asp-area="" asp-page="SendConfirm" asp-route-appointmentId="@appointment.Id"
                                     class="btn btn-primary">Accept</a>
                                 <a asp-area="" asp-page="SendRejection" asp-route-appointmentId="@appointment.Id"
                                     class="btn btn-primary">Reject</a>
-                                @* \\\-------------------------------------------------- *@
                             </div>
                         </div>
                     </div>
+
                 </div>
             }
 
