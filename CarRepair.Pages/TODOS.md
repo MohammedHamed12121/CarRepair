@@ -13,16 +13,20 @@
 - [ ] the sidebars have an icons so fix them
 
 
-##### Manager
-- [X]  Display all mechanics with thier infos
-- [X]  Display thier status(weather they work or not)
-- [ ]  can asign work to the free mechanics
-- [ ]  can recevie appointments form the receptionist for hard car repairs to determine weather the company accepts the repair or not
-- [ ]  
 
-##### Mechanic 
-- [ ] Make a mechanic user with this attributes
-    - first name : string
-    - second name : string
-    - busy : bool
-    - repair : Repair
+
+
+#### Func
+- [ ] make the make appointment form include (car model, services[repair, maintainance], )
+- [ ] add the subscription 
+- [X] add the payment 
+- [ ] add the finance page
+- [ ] Admin can 
+  - [ ] display repairs
+  - [ ] display employees and thier status
+  - [ ] assign repair to an employee
+  - [ ] admin can display the appointments from the reseptionist and accept it or not 
+- [ ] The reseptionist send the appointments to the admin to accept it or not 
+- [ ] receptionist search bar is not implemented
+- [ ] Add ToPaid page for receptionist
+- [ ] Add Paid page for receptionist

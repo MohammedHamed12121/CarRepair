@@ -1,8 +1,10 @@
 @page
+@using CarRepair.Pages.Models
 @model CarRepair.Pages.Pages.Receptionist.RecievedCars
+
 @{
     ViewData["Title"] = "RecievedCars";
-    Layout="_ReceptionistLayout";
+    Layout = "_ReceptionistLayout";
 }
 
 
@@ -50,7 +52,23 @@
                     <td>@repair.Id</td>
                     <td>@repair.VisitDate </td>
                     <td>@repair.Issue.Description</td>
-                    <td>@repair.CarStatus </td>
+                    @if (repair.CarStatus == Status.Finished)
+                    {
+                        <td>
+                            ✅
+                            <form method="post" asp-route-id="@repair.Id">
+                                @* <input type="hidden" value="@repair.Id"> *@
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="pk_test_51Ol87FBn8TTkykqozhdipJurzgc6VO1o2OFpksdVWOkyxe8aO6pK5MD1NwV1soUIzwPPaiw9Hh3aCxmLVDtAbduH00CJ6KxiKb"
+                                    data-name="Car Repair Payment" data-description="@repair.User" data-locale="en"
+                                    data-label="Confirm Payment - @repair.Price"></script>
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>@repair.CarStatus</td>
+                    }
                 </tr>
             }
         </tbody>

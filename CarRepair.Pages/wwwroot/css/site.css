@@ -6,8 +6,9 @@
   --red: #231417;
 }
 
-p {
-  /* color: var(--red); */
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 i {
@@ -148,16 +149,12 @@ i {
 
 /*** Service ***/
 .service-item .service-icon {
-  width: 90px;
-  height: 90px;
+  width: 10px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.service-item .service-icon img {
-  max-width: 60px;
-  max-height: 60px;
+  background-color: var(--primary);
 }
 
 /*** Footer ***/

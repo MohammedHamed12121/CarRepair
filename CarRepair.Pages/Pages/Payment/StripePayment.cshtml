@@ -1,0 +1,23 @@
+@page
+@model CarRepair.Pages.Pages.Payment.StripePayment
+@{
+    ViewData["Title"] = "StripePayment";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <form id="payment-form">
+        <input id="card-element" type="card" />
+        <button id="submit">Submit Payment</button>
+    </form>
+
+</div>
+<script src="https://checkout.stripe.com/checkout.js"
+class="stripe-button"
+data-key="pk_test_51Ol87FBn8TTkykqozhdipJurzgc6VO1o2OFpksdVWOkyxe8aO6pK5MD1NwV1soUIzwPPaiw9Hh3aCxmLVDtAbduH00CJ6KxiKb"
+data-name="Car Repair Payment"
+data-description=""
+data-locale="en"
+data-label="Confirm Payment"
+></script>

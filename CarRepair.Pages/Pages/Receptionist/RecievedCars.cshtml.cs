@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Stripe;
 
 namespace CarRepair.Pages.Pages.Receptionist
 {
@@ -32,7 +33,34 @@ namespace CarRepair.Pages.Pages.Receptionist
             Repairs = await _context.Repairs
                             .Where(r => r.CarStatus >= Status.Recieved)
                             .Include(r=> r.Issue)
+                            .Include(r=> r.User)
                             .ToListAsync();
+
+        }
+        public IActionResult OnPost(string stripeToken, int id)
+        {
+            var repair = _context.Repairs
+                .Where(r => r.Id ==id)
+                .Include(r => r.User)
+                .FirstOrDefault();
+            var chargeOptions = new ChargeCreateOptions(){
+                Amount = (long) (Convert.ToDouble(repair.Price)*100),
+                Currency = "usd",
+                Source = stripeToken,
+                Metadata = new Dictionary<string, string>(){
+                    {"RepairId", repair.Id.ToString()},
+                    {"RepairUser", repair.User!.Email!}
+                }
+            };
+            var service = new ChargeService();
+            Charge charge = service.Create(chargeOptions);
+            if (charge.Status == "succeeded")
+            {
+                repair.CarStatus = Status.Paid;
+            }
+            _context.SaveChanges();
+            // else
+            return RedirectToPage("RecievedCars");
         }
     }
 }
