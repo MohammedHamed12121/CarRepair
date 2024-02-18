@@ -18,7 +18,8 @@
 
 #### Func
 - [ ] make the make appointment form include (car model, services[repair, maintainance], )
-- [ ] add the subscription 
+- [X] add the subscription 
+- [ ] Make the user able to subscribe
 - [X] add the payment 
 - [ ] add the finance page
 - [ ] Admin can 

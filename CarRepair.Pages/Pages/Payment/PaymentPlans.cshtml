@@ -1,0 +1,26 @@
+@page
+@model CarRepair.Pages.Pages.Payment.PaymentPlans
+@{
+    ViewData["Title"] = "PaymentPlans";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    @foreach(var plan in Model.AllPlans)
+    {
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-body">@plan.Nickname</h5>
+                    <p>@plan.Amount</p>
+                    <p>@plan.Interval</p>
+                </div>
+            @* @Html.ActionLink("Subscribe","Payment","PaymentPlans", new {Id = plan.Id }, new {@class = "btn btn-primary"}) *@
+            <form method="post" asp-route-id="@plan.Id">
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+            </div>
+        </div>
+    }
+</div>
