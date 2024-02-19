@@ -2,57 +2,55 @@
 @model CarRepair.Pages.Pages.Receptionist.RejectedRepairs
 @{
     ViewData["Title"] = "RejectedRepairs";
-    Layout="_ReceptionistLayout";
+    Layout = "_ReceptionistLayout";
 }
 
 
-<div class="table-responsive pt-3">
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <div>
-                    <h1>@ViewData["Title"]</h1>
-                </div>
-                <div class="container">
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <div>
+                <h1>@ViewData["Title"]</h1>
+            </div>
+            <div class="container">
 
-                    <div class="row height d-flex justify-content-center align-items-center">
+                <div class="row height d-flex justify-content-center align-items-center">
 
-                        <div class="col-md-8">
+                    <div class="col-md-8">
 
-                            <div class="search">
-                                <i class="fa fa-search"></i>
-                                <input type="text" class="form-control" placeholder="Search By Id">
-                                @* <button class="btn btn-primary">Search</button> *@
-                            </div>
-
+                        <div class="search">
+                            <i class="fa fa-search"></i>
+                            <input type="text" class="form-control" placeholder="Search By Id">
+                            @* <button class="btn btn-primary">Search</button> *@
                         </div>
 
                     </div>
-                </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </div>
-    </nav>
-    <table class="table table-striped project-orders-table">
-        <thead>
 
-            <tr>
-                <th class="ml-5">Id</th>
-                <th>Visit Time</th>
-                <th>Issue</th>
-                <th>RepairStatus</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var repair in Model.Repairs)
-            {
+                </div>
+            </div>
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</nav>
+<section class="attendance">
+    <div class="attendance-list">
+        <table class="table">
+            <thead>
+
                 <tr>
-                    <td>@repair.Id</td>
-                    <td>@repair.VisitDate </td>
-                    <td>@repair.Issue.Description</td>
-                    <td>@repair.AppointmentStatus </td>
+                    <th class="ml-5">Id</th>
+                    <th>Visit Time</th>
+                    <th>Issue</th>
+                    <th>RepairStatus</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var repair in Model.Repairs)
+                {
+                    <partial name="_RepairsTable" model="@repair" />
+                }
+
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,164 @@
+@using CarRepair.Pages.Models
+@model Repair
+
+<style>
+    /*Attendance List serction  */
+    .attendance {
+        margin-top: 20px;
+        text-transform: capitalize;
+    }
+
+    .attendance-list {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 15px;
+        min-width: 100%;
+        overflow: hidden;
+        border-radius: 5px 5px 0 0;
+    }
+
+    table thead tr {
+        color: #fff;
+        background: #34AF6D;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px 15px;
+    }
+
+    .table tbody tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table tbody tr:nth-of-type(odd) {
+        background: #f3f3f3;
+    }
+
+    .table tbody tr.active {
+        font-weight: bold;
+        color: #4AD489;
+    }
+
+    .table tbody tr:last-of-type {
+        border-bottom: 2px solid #4AD489;
+    }
+
+    .table button {
+        padding: 6px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid #4AD489;
+    }
+
+    .table button:hover {
+        background: #4AD489;
+        color: #fff;
+        transition: 0.5rem;
+    }
+</style>
+
+<tr class="active">
+    <td>@Model.Id</td>
+    <td>@Model.VisitDate</td>
+    @if (Model.User?.UserName != null)
+    {
+        <td>@Model.User.UserName </td>
+    }
+    else
+    {
+        <td>@Model.Issue.Description </td>
+    }
+
+    @if (Model.AppointmentStatus == AppointmentStatus.Sent)
+    {
+        <td>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#IssueModel-@Model.Id">Show Issue</button>
+        </td>
+    }
+    else if (Model.AppointmentStatus == AppointmentStatus.Rejected)
+    {
+        <td>
+            @Model.AppointmentStatus
+        </td>
+
+    }
+    else
+    {
+        @if (Model.CarStatus == Status.Finished)
+        {
+            <td>
+                <form method="post" asp-route-id="@Model.Id">
+                    @* <input type="hidden" value="@repair.Id"> *@
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_51Ol87FBn8TTkykqozhdipJurzgc6VO1o2OFpksdVWOkyxe8aO6pK5MD1NwV1soUIzwPPaiw9Hh3aCxmLVDtAbduH00CJ6KxiKb"
+                        data-name="Car Repair Payment" data-description="@Model.User" data-locale="en"
+                        data-label="Confirm Payment - @Model.Price"></script>
+                </form>
+            </td>
+        }
+        else
+        {
+            <td>@Model.CarStatus</td>
+        }
+    }
+    @if (Model.AppointmentStatus == AppointmentStatus.Accept && Model.CarStatus < Status.Recieved)
+    {
+        <td>
+            <form method="post">
+                <input type="hidden" name="RepairId" value="@Model.Id">
+                <button type="submit" class="btn btn-primary" style="display: inline;">Recieve the car</button>
+            </form>
+        </td>
+    }
+
+</tr>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="IssueModel-@Model.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+
+                        <h4 class="card-title col-10">Issue <small>@Model.User</small></h4>
+                        <button type="button" class="close col-2 btn btn-primary" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <p class="card-description">
+                        <small>@Model.VisitDate</small>
+                    </p>
+                    <p>
+                        @Model.Issue!.Description
+                    </p>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+
+                <a asp-area="" asp-page="SendConfirm" asp-route-appointmentId="@Model.Id"
+                    class="btn btn-primary">Accept</a>
+                <a asp-area="" asp-page="SendRejection" asp-route-appointmentId="@Model.Id"
+                    class="btn btn-primary">Reject</a>
+            </div>
+        </div>
+    </div>
+
+</div>

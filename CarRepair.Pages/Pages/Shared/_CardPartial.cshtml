@@ -1,0 +1,130 @@
+@using CarRepair.Pages.Models
+@model Repair
+
+
+
+<style>
+    .job_card {
+        width: 100%;
+        padding: 15px;
+        cursor: pointer;
+        display: flex;
+        border-radius: 10px;
+        background: #fff;
+        margin-bottom: 15px;
+        justify-content: space-between;
+        border: 2px solid rgb(190, 190, 190);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .job_details {
+        display: flex;
+    }
+
+    .job_details .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .job_details .img i {
+        width: 70px;
+        font-size: 3rem;
+        margin-left: 1rem;
+        padding: 10px;
+        color: rgb(82, 22, 138);
+        background: rgb(216, 205, 226);
+    }
+
+    .job_details .text {
+        margin-left: 2.3rem;
+    }
+
+    .job_details .text span {
+        color: rgb(116, 112, 112);
+    }
+
+    .job_salary {
+        text-align: right;
+        color: rgb(54, 54, 54);
+    }
+
+    .job_card:active {
+        border: 2px solid blueviolet;
+        transition: 0.4s;
+    }
+</style>
+
+<div class="job_card">
+    <div class="job_details">
+        <div class="img">
+
+            @if (Model.AppointmentStatus == AppointmentStatus.Seen)
+            {
+                <form method="post">
+                    <input type="hidden" name="RepairId" value="@Model.Id">
+                    <button type="submit" class="btn btn-primary">Accept</button>
+                </form>
+
+            }
+            else
+            {
+                <i class="fab fa-google-drive"></i>
+            }
+        </div>
+        <div class="text">
+            <h2>Repair ID : @Model.Id</h2>
+            @if (Model.WorkerNote == null)
+            {
+                <span>@Model.Issue!.Description</span>
+            }
+            else
+            {
+                <span>@Model.WorkerNote</span>
+            }
+
+        </div>
+    </div>
+    <div>
+        @if (Model.AppointmentStatus == AppointmentStatus.Rejected)
+        {
+            <label class="badge badge-danger">
+                @Model.AppointmentStatus
+            </label>
+        }else if (Model.CarStatus == Status.AppointmentAccepted)
+        {
+            <label class="badge badge-danger">
+                @Model.CarStatus
+            </label>
+        }
+        else if (Model.CarStatus == Status.Recieved)
+        {
+            <label class="badge badge-warning">
+                @Model.CarStatus
+            </label>
+        }
+        else if (Model.CarStatus == Status.UnderRepair)
+        {
+            <label class="badge badge-info">
+                @Model.CarStatus
+            </label>
+        }
+        else
+        {
+            <label class="badge badge-success">
+                @Model.CarStatus
+            </label>
+        }
+    </div>
+    <div class="job_salary">
+        @if (Model.Price == 0)
+        {
+            <h4>There is no price yet</h4>
+        }
+        else
+        {
+            <h4>@Model.Price</h4>
+        }
+        <span>@Model.VisitDate</span>
+    </div>
+</div>

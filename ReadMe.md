@@ -6,9 +6,9 @@
 - [X] As a customer, I want to access a user-friendly interface to provide details about the issues with my car, including a description of the problem, and upload relevant images.
 - [X] As a car owner, I want to receive a cost estimate for the repair work before confirming the appointment, allowing me to budget accordingly.
 - [X] As a user, I want to receive timely status updates on the progress of the repair, including notifications when the work is completed and my car is ready for pickup.
-- [ ] As a customer, I want the ability to make online payments securely through the website for the completed repair services.
+- [X] As a customer, I want the ability to make online payments securely through the website for the completed repair services.
 - [ ] As a car owner, I want to access a comprehensive history of all the repairs and maintenance services performed on my vehicle through the website.
-- [ ] As a user, I want the option to subscribe to regular maintenance reminders and service notifications to ensure my vehicle remains in optimal condition.
+- [X] As a user, I want the option to subscribe to regular maintenance reminders and service notifications to ensure my vehicle remains in optimal condition.
 - [ ] As a customer, I want to leave and view reviews and ratings for the repair services provided by the company to make informed decisions.
 - [ ]  As a user, I want to find relevant information about the car repair company, including contact details, working hours, and location, easily on the website.
 - [ ]  As a car owner, I want the website to provide helpful resources and tips for routine car maintenance to prevent potential issues.

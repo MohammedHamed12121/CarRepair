@@ -7,30 +7,8 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="card-body">
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Visit Time</th>
-                    <th>Issue</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
+@foreach (var appointment in Model.Repairs)
+{
+    <partial name="_CardPartial" model="@appointment"/>        
 
-                </tr>
-                @* unaccepted repair called appointment *@
-                @foreach (var appointment in Model.Repairs)
-                {
-                    <tr>
-                        <td>@appointment.Id</td>
-                        <td>@appointment.VisitDate </td>
-                        <td>@appointment.Issue!.Description</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+}
