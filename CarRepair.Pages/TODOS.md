@@ -31,3 +31,5 @@
 - [ ] receptionist search bar is not implemented
 - [ ] Add ToPaid page for receptionist
 - [ ] Add Paid page for receptionist
+- [ ] fix: the subscript button 
+- [ ] add contect us page

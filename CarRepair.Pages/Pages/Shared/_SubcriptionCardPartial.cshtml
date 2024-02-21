@@ -1,0 +1,21 @@
+@model Stripe.Plan
+
+<div class="card">
+    <div class="content">
+        <h4>Basic Plan @Model.Nickname</h4>
+        <h3>@Model.Amount @Model.Currency.ToUpper()/ @Model.IntervalCount @Model.Interval</h3>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+
+    </div>
+    <form method="post" class="d-flex justify-content-center" asp-route-id="@Model.Id">
+        <button type="submit" class="btn ">Subscribe Now</button>
+    </form>
+</div>
