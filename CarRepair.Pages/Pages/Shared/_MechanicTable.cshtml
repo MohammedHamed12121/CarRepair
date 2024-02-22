@@ -1,9 +1,12 @@
 @using CarRepair.Pages.Models
+@using System.Security.Claims
 @model Repair
 
+@{
+    // Get the user's ID from the ClaimsPrincipal
+    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
 <style>
-
-
     .table {
         border-collapse: collapse;
         margin: 25px 0;
@@ -61,57 +64,13 @@
     <td>@Model.Id</td>
     <td>@Model.VisitDate</td>
 
-    @if (Model.User?.UserName != null)
-    {
-        <td>@Model.User.UserName </td>
-    }
-    else
-    {
-        <td>@Model.Issue.Description </td>
-    }
 
-    @if (Model.AppointmentStatus == AppointmentStatus.Sent)
-    {
-        <td>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#IssueModel-@Model.Id">Show Issue</button>
-        </td>
-    }
-    else if (Model.AppointmentStatus == AppointmentStatus.Rejected)
-    {
-        <td>
-            @Model.AppointmentStatus
-        </td>
 
-    }
-    else
-    {
-        @if (Model.CarStatus == Status.Finished)
-        {
-            <td>
-                <form method="post" asp-route-id="@Model.Id">
-                    @* <input type="hidden" value="@repair.Id"> *@
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_51Ol87FBn8TTkykqozhdipJurzgc6VO1o2OFpksdVWOkyxe8aO6pK5MD1NwV1soUIzwPPaiw9Hh3aCxmLVDtAbduH00CJ6KxiKb"
-                        data-name="Car Repair Payment" data-description="@Model.User" data-locale="en"
-                        data-label="Confirm Payment - @Model.Price"></script>
-                </form>
-            </td>
-        }
-        else
-        {
-            <td>@Model.CarStatus</td>
-        }
-    }
+    <td>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#IssueModel-@Model.Id">Show Issue</button>
+    </td>
 
-    @if (Model.AppointmentStatus == AppointmentStatus.Accept && Model.CarStatus < Status.Recieved)
-    {
-        <td>
-            <form method="post">
-                <input type="hidden" name="RepairId" value="@Model.Id">
-                <button type="submit" class="btn btn-primary" style="display: inline;">Recieve the car</button>
-            </form>
-        </td>
-    }
+
 
 </tr>
 
@@ -141,11 +100,20 @@
 
             </div>
             <div class="modal-footer">
-
-                <a asp-area="" asp-page="SendConfirm" asp-route-appointmentId="@Model.Id"
-                    class="btn btn-primary">Accept</a>
-                <a asp-area="" asp-page="SendRejection" asp-route-appointmentId="@Model.Id"
-                    class="btn btn-primary">Reject</a>
+                @if (userId == Model.AssignedMechanicId)
+                {
+                    <form method="post">
+                        <input type="hidden" value="@Model.Id" name="RepairId">
+                        <button type="submit" class="btn btn-primary">Complete</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post">
+                        <input type="hidden" value="@Model.Id" name="RepairId">
+                        <button type="submit" class="btn btn-primary">Get</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

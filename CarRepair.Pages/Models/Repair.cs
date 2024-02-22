@@ -15,6 +15,7 @@ namespace CarRepair.Pages.Models
         public string? WorkerNote { get; set; }
         public decimal Price { get; set; }
         public DateOnly AcceptDate { get; set; }
+        public CarModels CarModel { get; set; }
         public Status CarStatus { get; set; }
         public AppointmentStatus AppointmentStatus { get; set; }
         public int IssueId { get; set; }

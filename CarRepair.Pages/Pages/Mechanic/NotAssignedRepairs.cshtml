@@ -1,37 +1,61 @@
 @page
+@using System.Security.Claims
 @model CarRepair.Pages.Pages.Mechanic.NotAssignedRepairs
 @{
     ViewData["Title"] = "NotAssignedRepairs";
     Layout = "_MechanicLayout";
+    
+    // Get the user's ID from the ClaimsPrincipal
+    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<div>
-    <table class="table table-sm table-striped table-bordered">
-        <thead>
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <div>
+                <h1>@ViewData["Title"]</h1>
+            </div>
+            <div class="container">
 
-            <tr>
-                <th>Id</th>
-                <th>Visit Time</th>
-                <th>Issue</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var repair in Model.Repairs)
-            {
+                <div class="row height d-flex justify-content-center align-items-center">
+
+                    <div class="col-md-8">
+
+                        <div class="search">
+                            <i class="fa fa-search"></i>
+                            <input type="text" class="form-control" placeholder="Search By Id">
+                            @* <button class="btn btn-primary">Search</button> *@
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</nav>
+
+<section class="attendance">
+    <div class="attendance-list">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@repair.Id</td>
-                    <td>@repair.VisitDate </td>
-                    <td>@repair.Issue.Description</td>
-                    <td>
-                        <form method="post">
-                            <input type="hidden" value="@repair.Id" name="RepairId">
-                            <button type="submit" class="btn btn-primary">Get</button>
-                        </form>
-                    </td>
+                    <th>Repair ID</th>
+                    <th>Visit Time</th>
+                    
+                    <th>Details</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+
+                @foreach (var repair in @Model.Repairs)
+                {
+                    <partial name="_MechanicTable" model="@repair" />
+                }
+
+            </tbody>
+        </table>
+    </div>
+</section>

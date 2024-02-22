@@ -33,3 +33,5 @@
 - [ ] Add Paid page for receptionist
 - [ ] fix: the subscript button 
 - [ ] add contect us page
+- [ ] Make a user history page to display all the appointments
+- [ ] 

@@ -513,16 +513,29 @@ section .header{
 
 .pricing .card button{
     color: white;
-    /* background-color: transparent; */
     background-color: var(--primary);
     border: 2px solid white;
 }
 
 
 .pricing .card button:hover{
-    /* background-color: var(--primary); */
     background-color: white;
     color: var(--primary);
-    /* border-color: white; */
     border-color: var(--primary);
 }
+
+
+    /*Attendance List serction  */
+    .attendance {
+        margin-top: 20px;
+        text-transform: capitalize;
+    }
+
+    .attendance-list {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }

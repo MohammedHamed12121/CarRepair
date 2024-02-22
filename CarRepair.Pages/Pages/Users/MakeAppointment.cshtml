@@ -20,17 +20,18 @@
         <div class="form-group">
             <label for="exampleSelectGender">Car Model</label>
             <select class="form-control" id="exampleSelectGender">
-                <option>Male</option>
-                <option>Female</option>
+                @foreach (var type in Enum.GetValues(typeof(CarModels)))
+                {
+                    <option name=Repair.CarModel>@type</option>
+                }
             </select>
         </div>
         <div class="form-group">
             <label for="exampleTextarea1">What is your car problem</label>
-            <textarea class="form-control" id="exampleTextarea1" rows="4" value="Issue" name="Repair.Issue.Description"></textarea>
+            <textarea class="form-control" id="exampleTextarea1" rows="4" value="Issue"
+                name="Repair.Issue.Description"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">submit</button>
 
     </form>
 </div>
-
-
