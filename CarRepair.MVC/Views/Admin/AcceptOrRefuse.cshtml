@@ -1,0 +1,22 @@
+@model AcceptOrRefuseVM
+@{
+    ViewData["Title"] = Model.Accept ? "Accept" : "Reject";
+}
+
+
+
+<form method="post">
+    <input type="hidden" name="@Model.Id" value="@Model.Id" >  
+    <input type="hidden" name="@Model.Accept" value="@(Model.Accept.ToString())" >  
+    
+    @if(Model.Accept)
+    {
+        <input type="text" placeholder="Price" asp-for="Price">
+    }
+    <input type="text" placeholder="Notes" asp-for="WorkerNote">
+
+    <button type="submit">
+        @(Model.Accept ? "Accept" : "Reject") 
+    </button>
+
+</form>

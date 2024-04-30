@@ -1,0 +1,171 @@
+@model AdminIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    tr:hover {
+        background-color: gray;
+        cursor: pointer;
+    }
+
+    .row-link {
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<p>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#Appointments" role="button" aria-expanded="false"
+        aria-controls="Appointments">
+        Appointments
+    </a>
+
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#Seen"
+        aria-expanded="false" aria-controls="collapseExample">
+        Seen
+    </button>
+
+
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#Accepted"
+        aria-expanded="false" aria-controls="collapseExample">
+        Accepted
+    </button>
+
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#Rejected"
+        aria-expanded="false" aria-controls="collapseExample">
+        Rejected
+    </button>
+</p>
+
+
+<div class="collapse" id="Appointments">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">User</th>
+                <th scope="col">Date</th>
+                <th scope="col">Car Model</th>
+                <th scope="col">Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Repair appointment in Model.Appointments)
+            {
+                <tr>
+
+                    <th scope="row">@appointment.Id</th>
+                    <td>@appointment.User.UserName</td>
+                    <td>@appointment.VisitDate</td>
+                    <td>@appointment.CarModel</td>
+                    <td>
+                        <a class="row-link" asp-area="" asp-controller="admin" asp-action="RepairDetail"
+                            asp-route-id="@appointment.Id">
+                            >>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="collapse" id="Seen">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">User</th>
+                <th scope="col">Date</th>
+                <th scope="col">Car Model</th>
+                <th scope="col">Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Repair appointment in Model.Seen)
+            {
+                <tr>
+
+                    <th scope="row">@appointment.Id</th>
+                    <td>@appointment.User.UserName</td>
+                    <td>@appointment.VisitDate</td>
+                    <td>@appointment.CarModel</td>
+                    <td>
+                        <a class="row-link" asp-area="" asp-controller="admin" asp-action="RepairDetail"
+                            asp-route-id="@appointment.Id">
+                            >>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="collapse" id="Accepted">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">User</th>
+                <th scope="col">Date</th>
+                <th scope="col">Car Model</th>
+                <th scope="col">Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Repair appointment in Model.Accepted)
+            {
+                <tr>
+
+                    <th scope="row">@appointment.Id</th>
+                    <td>@appointment.User.UserName</td>
+                    <td>@appointment.VisitDate</td>
+                    <td>@appointment.CarModel</td>
+                    <td>
+                        <a class="row-link" asp-area="" asp-controller="admin" asp-action="RepairDetail"
+                            asp-route-id="@appointment.Id">
+                            >>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="collapse" id="Rejected">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">User</th>
+                <th scope="col">Date</th>
+                <th scope="col">Car Model</th>
+                <th scope="col">Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Repair appointment in Model.Rejects)
+            {
+                <tr>
+
+                    <th scope="row">@appointment.Id</th>
+                    <td>@appointment.User.UserName</td>
+                    <td>@appointment.VisitDate</td>
+                    <td>@appointment.CarModel</td>
+                    <td>
+                        <a class="row-link" asp-area="" asp-controller="admin" asp-action="RepairDetail"
+                            asp-route-id="@appointment.Id">
+                            >>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

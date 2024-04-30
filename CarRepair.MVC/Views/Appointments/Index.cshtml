@@ -1,0 +1,36 @@
+@model List<Repair>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<a asp-area="" asp-controller="Appointments" asp-action="MakeAppointment">Make Appointment</a>
+<a asp-area="" asp-controller="Appointments" asp-action="Reply">Reply</a>
+<a asp-area="" asp-controller="Appointments" asp-action="Rejected">Rejected</a>
+<a asp-area="" asp-controller="Appointments" asp-action="Accepted">Your Repairs Status</a>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Car Model</th>
+            <th scope="col">Issue</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Repair repair in Model)
+        {
+            <tr>
+                <th scope="row">@repair.Id</th>
+                <td>@repair.VisitDate</td>
+                <td>@repair.CarModel</td>
+                <td>@repair.Issue.Description</td>
+                <td>
+                    <a asp-area="" asp-controller="Appointments" asp-action="DeleteAppointment" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
