@@ -1,13 +1,21 @@
 @model List<Repair>
 @{
     ViewData["Title"] = "Index";
+
+    Pager pager = new Pager();
+    int pageNumber = 0;
+    if (ViewBag.Pager is not null)
+    {
+        pager = ViewBag.Pager;
+        pageNumber = pager.CurrentPage;
+    }
 }
 
 
-<a asp-area="" asp-controller="Appointments" asp-action="MakeAppointment">Make Appointment</a>
-<a asp-area="" asp-controller="Appointments" asp-action="Reply">Reply</a>
-<a asp-area="" asp-controller="Appointments" asp-action="Rejected">Rejected</a>
-<a asp-area="" asp-controller="Appointments" asp-action="Accepted">Your Repairs Status</a>
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Appointments" asp-action="MakeAppointment">Make Appointment</a>
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Appointments" asp-action="Reply">Reply</a>
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Appointments" asp-action="Rejected">Rejected</a>
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Appointments" asp-action="Accepted">Your Repairs Status</a>
 
 <table class="table">
     <thead class="table-dark">
@@ -34,3 +42,10 @@
         }
     </tbody>
 </table>
+<partial name="_PagerPartial" model="@pager" />
+
+
+<script>
+    let pager = @pager
+    console.log(pager)
+</script>

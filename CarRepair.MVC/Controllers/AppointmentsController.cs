@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CarRepair.MVC.Controllers
 {
@@ -13,21 +14,50 @@ namespace CarRepair.MVC.Controllers
         private readonly ILogger<AppointmentsController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IMemoryCache _memoryCache;
 
-        public AppointmentsController(ILogger<AppointmentsController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public AppointmentsController(ILogger<AppointmentsController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, IMemoryCache memoryCache = null)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
+            _memoryCache = memoryCache;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 9)
         {
             var curUserId = _userManager.GetUserId(User);
-            var repairs = _context.Repairs
+            string dataCacheKey = $"Appointments_{page}_{pageSize}";
+            string countCacheKey = "Count";
+
+            if(!_memoryCache.TryGetValue(dataCacheKey, out List<Repair> repairs) || 
+                !_memoryCache.TryGetValue(countCacheKey, out int pageCount)
+            )
+            {
+                var pageSkip = (page - 1) * pageSize;
+
+                repairs = await _context.Repairs
                               .Where(r => r.UserId == curUserId && r.AppointmentStatus == AppointmentStatus.NotSeen)
                               .Include(r => r.Issue)
-                              .ToList();
+                              .Skip(pageSkip).Take(pageSize)
+                              .ToListAsync();
+                pageCount = _context.Repairs.Count();
+                              
+
+                var cacheExpiryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTime.Now.AddMinutes(5),
+                    Priority = CacheItemPriority.High,
+                    SlidingExpiration = TimeSpan.FromMinutes(2)
+                };
+
+                _memoryCache.Set(dataCacheKey, repairs, cacheExpiryOptions);
+                _memoryCache.Set(countCacheKey, pageCount, cacheExpiryOptions);
+            }
+
+            var pager = new Pager(pageCount, page, pageSize);
+            ViewBag.pager = pager;
+
             return View(repairs);
         }
 
