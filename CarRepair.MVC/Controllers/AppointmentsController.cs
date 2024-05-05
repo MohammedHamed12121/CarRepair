@@ -1,9 +1,9 @@
 using CarRepair.MVC.Data;
+using CarRepair.MVC.Interfaces;
 using CarRepair.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace CarRepair.MVC.Controllers
@@ -12,48 +12,36 @@ namespace CarRepair.MVC.Controllers
     public class AppointmentsController : Controller
     {
         private readonly ILogger<AppointmentsController> _logger;
-        private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IMemoryCache _memoryCache;
+        private readonly IAppointmentRepository _appointmentRepo;
 
-        public AppointmentsController(ILogger<AppointmentsController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, IMemoryCache memoryCache = null)
+        public AppointmentsController(
+                            ILogger<AppointmentsController> logger, 
+                            UserManager<IdentityUser> userManager, 
+                            IMemoryCache memoryCache, 
+                            IAppointmentRepository appointmentRepo)
         {
             _logger = logger;
-            _context = context;
             _userManager = userManager;
             _memoryCache = memoryCache;
+            _appointmentRepo = appointmentRepo;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 9)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 9, AppointmentStatus appointmentStatus = AppointmentStatus.NotSeen)
         {
             var curUserId = _userManager.GetUserId(User);
-            string dataCacheKey = $"Appointments_{page}_{pageSize}";
-            string countCacheKey = "Count";
-
-            if(!_memoryCache.TryGetValue(dataCacheKey, out List<Repair> repairs) || 
-                !_memoryCache.TryGetValue(countCacheKey, out int pageCount)
-            )
-            {
-                var pageSkip = (page - 1) * pageSize;
-
-                repairs = await _context.Repairs
-                              .Where(r => r.UserId == curUserId && r.AppointmentStatus == AppointmentStatus.NotSeen)
-                              .Include(r => r.Issue)
-                              .Skip(pageSkip).Take(pageSize)
-                              .ToListAsync();
-                pageCount = _context.Repairs.Count();
-                              
-
-                var cacheExpiryOptions = new MemoryCacheEntryOptions
-                {
-                    AbsoluteExpiration = DateTime.Now.AddMinutes(5),
-                    Priority = CacheItemPriority.High,
-                    SlidingExpiration = TimeSpan.FromMinutes(2)
-                };
-
-                _memoryCache.Set(dataCacheKey, repairs, cacheExpiryOptions);
-                _memoryCache.Set(countCacheKey, pageCount, cacheExpiryOptions);
-            }
+            string dataCacheKey = $"Appointments_{appointmentStatus}_{page}_{pageSize}";
+            
+            var repairs = await  _appointmentRepo.GetAllAsync(
+                    userId: curUserId!, 
+                    dataCacheKey: dataCacheKey, 
+                    page: page, 
+                    pageSize: pageSize,
+                    appointmentStatus
+                    );
+            
+            var pageCount = await _appointmentRepo.GetAllItemsCountAsync(curUserId!, appointmentStatus);
 
             var pager = new Pager(pageCount, page, pageSize);
             ViewBag.pager = pager;
@@ -62,61 +50,40 @@ namespace CarRepair.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult MakeAppointment()
+        public IActionResult Send()
         {
             
             var repair = new Repair() ;
             return View(repair);
         }
         [HttpPost]
-        public IActionResult MakeAppointment(Repair repair)
+        public IActionResult Send(Repair repair)
         {
             var newRepair = repair;
-            _context.Repairs.Add(newRepair);
-            _context.SaveChanges();
+            _appointmentRepo.Add(newRepair);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Reply()
-        {
-            var curUserId = _userManager.GetUserId(User);
-            var repair = _context.Repairs
-                                 .Where( r => r.UserId == curUserId && r.AppointmentStatus == AppointmentStatus.Seen)
-                                 .Include(r => r.Issue)
-                                 .ToList();
-            return View(repair);
-        }
-
         [HttpPost]
-        public IActionResult Reply(int id)
+        public async Task<IActionResult> Accept([FromForm]int id)
         {
-            var appointment = _context.Repairs
-                                      .Where(r => r.Id == id)
-                                      .FirstOrDefault();
+            var appointment = await _appointmentRepo.GetByIdAsync(id);
 
             appointment.AppointmentStatus = AppointmentStatus.Accept;
-            _context.Repairs.Update(appointment);
-            _context.SaveChanges();
-            return RedirectToAction("Reply");
-        }
 
-        public IActionResult Rejected()
-        {
-            var curUserId = _userManager.GetUserId(User);
-            var repair = _context.Repairs
-                                 .Where(r => r.UserId == curUserId && r.AppointmentStatus == AppointmentStatus.Rejected)
-                                 .Include(r => r.Issue)
-                                 .ToList();
-            return View(repair);
+            await _appointmentRepo.Update(appointment);
+
+            // TODO: Handle redirection
+            return RedirectToAction("Index");
         }
-        public IActionResult Accepted()
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromForm]int repairId)
         {
-            var curUserId = _userManager.GetUserId(User);
-            var repair = _context.Repairs
-                                 .Where(r => r.UserId == curUserId && r.AppointmentStatus == AppointmentStatus.Accept)
-                                 .Include(r => r.Issue)
-                                 .ToList();
-            return View(repair);
+            var repair = await _appointmentRepo.GetByIdAsync(repairId);
+
+            _appointmentRepo.Delete(repair);
+
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

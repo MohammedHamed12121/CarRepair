@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CarRepair.MVC.Data;
+using CarRepair.MVC.Interfaces;
+using CarRepair.MVC.Repositories;
+using CarRepair.MVC.Settings;
+using CarRepair.MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+// Database Retry service
+builder.Services.Configure<DatabaseReconnectSettings>(builder.Configuration.GetSection("DatabaseReconnectSettings"));
+
+// repositories
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddSingleton<IDatabaseRetryService, DatabaseRetryService>();
 
 // Caching
 builder.Services.AddMemoryCache();
