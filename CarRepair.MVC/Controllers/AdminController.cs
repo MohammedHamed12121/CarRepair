@@ -1,26 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using CarRepair.MVC.Data;
 using CarRepair.MVC.Models;
 using CarRepair.MVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace CarRepair.MVC.Controllers
 {
+    [Authorize (Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AdminController(ILogger<AdminController> logger, ApplicationDbContext context = null)
+        public AdminController(ILogger<AdminController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -95,6 +94,16 @@ namespace CarRepair.MVC.Controllers
             _context.Update(repair);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Dashboard()
+        {
+            var mechanics = await _userManager.GetUsersInRoleAsync("Mechanic");
+            var count = mechanics.Count;
+            return View(count);
+        }
+        public IActionResult MechanicList()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
