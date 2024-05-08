@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using CarRepair.MVC.Data;
 using CarRepair.MVC.Models;
 using CarRepair.MVC.ViewModels;
@@ -24,47 +25,7 @@ namespace CarRepair.MVC.Controllers
 
         public IActionResult Index()
         {
-            var notSeenAppointments = _context.Repairs
-                                  .Where(r => r.AppointmentStatus == AppointmentStatus.NotSeen)
-                                  .Include(r => r.User)
-                                  .Include(r => r.Issue)
-                                  .ToList();
-
-            var seenAppointments = _context.Repairs
-                                  .Where(r => r.AppointmentStatus == AppointmentStatus.Seen)
-                                  .Include(r => r.User)
-                                  .Include(r => r.Issue)
-                                  .ToList();
-
-            var rejectedAppointments = _context.Repairs
-                                  .Where(r => r.AppointmentStatus == AppointmentStatus.Rejected)
-                                  .Include(r => r.User)
-                                  .Include(r => r.Issue)
-                                  .ToList();
-
-            var acceptedAppointments = _context.Repairs
-                                  .Where(r => r.AppointmentStatus == AppointmentStatus.Accept)
-                                  .Include(r => r.User)
-                                  .Include(r => r.Issue)
-                                  .ToList();
-
-            var indexVM = new AdminIndexVM(){
-                Appointments = notSeenAppointments,
-                Seen = seenAppointments,
-                Rejects = rejectedAppointments,
-                Accepted = acceptedAppointments
-            };
-            return View(indexVM);
-        }
-
-        public IActionResult RepairDetail(int id)
-        {
-            var repair = _context.Repairs
-                                 .Where(r => r.Id == id)
-                                 .Include(r => r.User)
-                                 .Include(r => r.Issue)
-                                 .FirstOrDefault();
-            return View(repair);
+            return View();
         }
 
         public IActionResult AcceptOrRefuse(int id, bool isAccept = true)
@@ -99,11 +60,44 @@ namespace CarRepair.MVC.Controllers
         {
             var mechanics = await _userManager.GetUsersInRoleAsync("Mechanic");
             var count = mechanics.Count;
+            
+            // TODO: Add #of ingoing repairs & # of new appointments & #of finished repairs and use ajax
             return View(count);
         }
-        public IActionResult MechanicList()
+
+
+        public async Task<IActionResult> ServiceRequests(AppointmentStatus appointmentStatus, int page = 1, int pageSize = 10)
         {
-            return View();
+            IQueryable<Repair> appointments = _context.Repairs
+                                  .Where(r => r.AppointmentStatus == appointmentStatus);
+
+            var pageCount = await appointments.CountAsync();
+
+            appointments = appointments
+                                  .Skip((page-1)*pageSize).Take(pageSize)
+                                  .Include(r => r.User)
+                                  .Include(r => r.Issue);
+
+            var pager = new PagerVM()
+            {
+                Pager = new Pager(pageCount, page, pageSize),
+                Controller = "Admin",
+                Action = "ServiceRequests"
+            };
+
+            ViewBag.pager = pager;
+            return View(await appointments.ToListAsync());
+        }
+
+        public IActionResult UserList()
+        {
+            // to get uses with no roles
+            var users = _context.Users
+                                .Where(c => !_context.UserRoles
+                                                    .Select(b => b.UserId).Distinct()
+                                                    .Contains(c.Id))
+                                .ToList();
+            return View(users);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

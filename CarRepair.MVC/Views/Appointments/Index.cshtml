@@ -1,6 +1,7 @@
 @model List<Repair>
 @{
     ViewData["Title"] = "Index";
+    @* Layout = null; *@
 
     Pager pager = new Pager();
     int pageNumber = 0;
@@ -21,6 +22,9 @@
 <a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Appointments" asp-action="Index" asp-route-appointmentStatus="@AppointmentStatus.Rejected">Rejected</a>
 
 <a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Appointments" asp-action="Index" asp-route-appointmentStatus="@AppointmentStatus.Accept">Your Repairs Status</a>
+
+
+
 
 <table class="table">
     <thead class="table-dark">

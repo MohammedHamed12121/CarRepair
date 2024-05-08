@@ -1,0 +1,96 @@
+@model List<Repair>
+@{
+    ViewData["Title"] = "ServiceRequests";
+    Layout = "_AdminLayout";
+
+    PagerVM pager = new PagerVM();
+    int pageNumber = 0;
+    if (ViewBag.Pager is not null)
+    {
+        pager = ViewBag.Pager;
+        pageNumber = pager.Pager.CurrentPage;
+    }
+}
+
+
+
+<style>
+    tr:hover {
+        background-color: gray;
+        cursor: pointer;
+    }
+
+    .row-link {
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+
+
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Admin" asp-action="ServiceRequests"
+    asp-route-appointmentStatus="@AppointmentStatus.NotSeen">New</a>
+
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Admin" asp-action="ServiceRequests"
+    asp-route-appointmentStatus="@AppointmentStatus.Seen">Reply</a>
+
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Admin" asp-action="ServiceRequests"
+    asp-route-appointmentStatus="@AppointmentStatus.Rejected">Rejected</a>
+
+<a class="btn btn-success p-2 mb-2" asp-area="" asp-controller="Admin" asp-action="ServiceRequests"
+    asp-route-appointmentStatus="@AppointmentStatus.Accept">Repairs</a>
+
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">User</th>
+            <th scope="col">Date</th>
+            <th scope="col">Car Model</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Repair appointment in Model)
+        {
+            <tr data-toggle="modal" data-target="#exampleModalCenter-{@appointment.Id}">
+
+                <th scope="row">@appointment.Id</th>
+                <td>@appointment.User.UserName</td>
+                <td>@appointment.VisitDate</td>
+                <td>@appointment.CarModel</td>
+                
+            </tr>
+            <div class="modal fade" id="exampleModalCenter-{@appointment.Id}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">@appointment.Id</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h3>@appointment.User</h3>
+                            <h5>@appointment.Issue.Description</h5>
+                            <h5>@appointment.Price</h5>
+                            <h5>@appointment.CarModel</h5>
+                            <h5>@appointment.AcceptDate</h5>
+                        </div>
+                        <div class="modal-footer d-flex align-center justify-center">
+                            @if(@appointment.AppointmentStatus == AppointmentStatus.NotSeen)
+                            {
+                            <a class="btn btn-primary" asp-area="" asp-controller="Admin" asp-action="AcceptOrRefuse" asp-route-id="@appointment.Id" asp-route-isAccept="true" >Accept</a>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Admin" asp-action="AcceptOrRefuse" asp-route-id="@appointment.Id" asp-route-isAccept="false">Reject</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>
+
+<partial name="_PagerPartialNew" model="@pager" />

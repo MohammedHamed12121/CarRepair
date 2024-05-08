@@ -1,0 +1,39 @@
+@model PagerVM
+
+<div class="container">
+    @if(@Model.Pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-center">
+            @if(@Model.Pager.CurrentPage >1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-page="@Model.Pager.StartPage">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-page="@(Model.Pager.CurrentPage-1)"> Prev </a>
+                </li> 
+            }
+
+            @for(var pge = @Model.Pager.StartPage; pge <= @Model.Pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == @Model.Pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-page="@pge">@pge</a>
+
+                </li>
+            }
+
+            @if(@Model.Pager.CurrentPage < @Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-page="@(Model.Pager.CurrentPage+1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-page="@Model.Pager.TotalPages">Last</a>
+                </li>
+            }
+            
+
+        </ul>
+    }
+
+</div>
